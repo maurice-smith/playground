@@ -1,6 +1,7 @@
 package com.kingmo.databindingex.viewmodel;
 
 import android.support.annotation.NonNull;
+import android.support.v4.math.MathUtils;
 import android.text.TextUtils;
 
 import com.kingmo.databindingex.repo.PersonRepo;
@@ -8,6 +9,8 @@ import com.kingmo.databindingex.model.Person;
 import com.kingmo.databindingex.scheduler.SchedulerProvider;
 
 //import io.reactivex.Observable;
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.Observable;
 
 import io.reactivex.disposables.CompositeDisposable;
@@ -49,11 +52,11 @@ public class PersonViewModel extends Observable {
     }
 
     public void updatePersonData(String name, String age) {
-        if (TextUtils.isEmpty(name)) {
+        if (StringUtils.isBlank(name)) {
             name = "Default Person Name.";
         }
 
-        if (TextUtils.isEmpty(age) || !TextUtils.isDigitsOnly(age)) {
+        if (!StringUtils.isNumeric(age)) {
             age = "0";
         }
 

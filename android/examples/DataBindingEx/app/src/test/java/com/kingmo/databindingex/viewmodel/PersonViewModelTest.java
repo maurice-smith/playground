@@ -6,6 +6,7 @@ import com.kingmo.databindingex.scheduler.TestSchedulerProvider;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.ArgumentMatchers;
 
 import io.reactivex.Observable;
 
@@ -46,7 +47,54 @@ public class PersonViewModelTest {
 
         assertNotNull(result);
         assertThat(result.toString(), is("Person{name='null', age=0}"));
+
         verify(personRepo, atLeastOnce()).getPersonInfo();
     }
 
+    @Test
+    public void testGetPersonDataInfo() throws Exception {
+        Person expected = new Person("Paul Wall", 33);
+
+        Observable<Person> observer = Observable.just(expected);
+        observer.subscribe(person -> result = person);
+
+        when(personRepo.getPersonInfo()).thenReturn(observer);
+
+        personViewModel.getPersonData();
+
+        assertNotNull(result);
+        assertThat(result, is(expected));
+
+        verify(personRepo, atLeastOnce()).getPersonInfo();
+    }
+
+    @Test
+    public void testUpdateNullData() throws Exception {
+        Person expected = new Person("Default Person Name.", 0);
+
+        Observable<Person> observer = Observable.just(expected);
+        observer.subscribe(person -> result = person);
+
+        when(personRepo.updatePerson(ArgumentMatchers.isA(Person.class))).thenReturn(observer);
+
+        personViewModel.updatePersonData(null, null);
+
+        assertNotNull(result);
+        assertThat(result, is(expected));
+    }
+
+    @Test
+    public void testUpdateData() throws Exception {
+        Person expected = new Person("Bobby", 30);
+
+        Observable<Person> observer = Observable.just(expected);
+        observer.subscribe(person -> result = person);
+
+        when(personRepo.updatePerson(ArgumentMatchers.isA(Person.class))).thenReturn(observer);
+
+        personViewModel.updatePersonData("Bobby", "30");
+
+        assertNotNull(result);
+        assertThat(result, is(expected));
+    }
 }
