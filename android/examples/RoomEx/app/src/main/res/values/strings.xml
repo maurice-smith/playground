@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">RoomEx</string>
+    <string name="name_hint">Enter Name</string>
+    <string name="age_hint">Enter Age</string>
+    <string name="enter_button">ADD</string>
+    <string name="title">Player Roster</string>
+    <string name="no_results_msg">Sorry, no player found.</string>
 </resources>
