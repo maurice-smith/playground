@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">RoomEx</string>
     <string name="name_hint">Enter Name</string>
-    <string name="jersey_num_hint">Jersey Number</string>
+    <string name="jersey_num_hint">Jersey#</string>
     <string name="enter_button">ADD</string>
     <string name="title">Player Roster</string>
     <string name="no_results_msg">Sorry, no player found.</string>

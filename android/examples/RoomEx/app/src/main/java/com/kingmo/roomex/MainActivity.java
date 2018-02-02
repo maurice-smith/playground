@@ -7,6 +7,7 @@ import android.databinding.DataBindingUtil;
 import android.view.View;
 import android.widget.Toast;
 
+import com.kingmo.roomex.database.AppDatabase;
 import com.kingmo.roomex.databinding.ActivityMainBinding;
 import com.kingmo.roomex.repository.TeamMateRepository;
 import com.kingmo.roomex.viewmodel.RosterEntryViewModel;
@@ -14,12 +15,14 @@ import com.kingmo.roomex.viewmodel.RosterEntryViewModel;
 public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     private TeamMateRepository teamMateRepository;
+    private AppDatabase appDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        teamMateRepository = new TeamMateRepository(((RoomExApplication) getApplicationContext())
-                .getAppDatabase().teamDao());
+        appDatabase = ((RoomExApplication) getApplicationContext())
+                .getAppDatabase();
+        teamMateRepository = new TeamMateRepository(appDatabase.teamDao());
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         binding.setViewModel(new RosterEntryViewModel(teamMateRepository,
@@ -33,5 +36,11 @@ public class MainActivity extends AppCompatActivity {
                         Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        AppDatabase.destroyInstance();
     }
 }

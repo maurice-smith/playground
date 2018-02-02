@@ -58,6 +58,7 @@
             android:layout_height="wrap_content"
             android:inputType="textCapWords"
             android:hint="@string/name_hint"
+            android:text="@{viewModel.mateNameEntry}"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"/>
 
