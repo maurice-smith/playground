@@ -62,11 +62,11 @@
             android:layout_marginEnd="20dp"/>
 
         <EditText
-            android:id="@+id/playerAge"
+            android:id="@+id/playerNumber"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:inputType="number"
-            android:hint="@string/age_hint"
+            android:hint="@string/jersey_num_hint"
             android:layout_marginTop="10dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"/>
