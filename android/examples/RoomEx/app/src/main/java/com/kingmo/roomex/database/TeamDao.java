@@ -18,7 +18,7 @@ import io.reactivex.Flowable;
 public interface TeamDao {
 
     @Query(value = "SELECT * FROM team_mates WHERE id = :id LIMIT 1")
-    Flowable<TeamMate> findTeamMateById(String id);
+    Flowable<TeamMate> findTeamMateById(long id);
 
     @Query(value = "SELECT * FROM team_mates")
     Flowable<List<TeamMate>> getTeamMates();
