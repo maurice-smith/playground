@@ -1,6 +1,7 @@
 package com.kingmo.roomex.viewmodel;
 
 import android.content.res.Resources;
+import android.view.View;
 
 import com.kingmo.roomex.SchedulerProvider;
 import com.kingmo.roomex.database.TeamMate;
@@ -9,7 +10,9 @@ import com.kingmo.roomex.repository.TeamMateRepository;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.Completable;
 import io.reactivex.Flowable;
+import io.reactivex.functions.Action;
 import io.reactivex.functions.Function;
 
 /**
@@ -22,6 +25,8 @@ public class RosterEntryViewModel {
     private String mateNameEntry;
     private int jerseyNumberEntry;
     private Resources res;
+    private boolean isNoResultsVisible;
+    private boolean isPlayerResultsVisible;
 
     public RosterEntryViewModel(TeamMateRepository teamMateRepo,
                                 SchedulerProvider schedulerProvider, Resources res) {
@@ -33,13 +38,33 @@ public class RosterEntryViewModel {
     public Flowable<List<TeamMateViewModel>> getFormattedTeamInfos() {
         return teamMateRepo.getTeamMates()
                 .observeOn(schedulerProvider.mainThread())
-                .subscribeOn(schedulerProvider.mainThread())
+                .subscribeOn(schedulerProvider.backgroundThread())
                 .map(new Function<List<TeamMate>, List<TeamMateViewModel>>() {
                     @Override
                     public List<TeamMateViewModel> apply(List<TeamMate> teamMates) throws Exception {
                         return getTeamMates(teamMates);
                     }
                 });
+    }
+
+    public Completable addTeamMate(final String name, final int jerseyNum) {
+        return Completable.fromAction(new Action() {
+            @Override
+            public void run() throws Exception {
+                teamMateRepo.addTeamMate(new TeamMate(name, jerseyNum));
+            }
+        }).observeOn(schedulerProvider.mainThread())
+                .subscribeOn(schedulerProvider.backgroundThread());
+    }
+
+    public Completable removeTeamMate (final TeamMate mate) {
+        return Completable.fromAction(new Action() {
+            @Override
+            public void run() throws Exception {
+                teamMateRepo.removeMate(mate);
+            }
+        }).observeOn(schedulerProvider.mainThread())
+                .subscribeOn(schedulerProvider.backgroundThread());
     }
 
     public String getMateNameEntry() {
@@ -58,12 +83,32 @@ public class RosterEntryViewModel {
         this.jerseyNumberEntry = jerseyNumberEntry;
     }
 
+    public boolean isNoResultsVisible() {
+        return isNoResultsVisible;
+    }
+
+    public void setNoResultsVisible(boolean noResultsVisible) {
+        isNoResultsVisible = noResultsVisible;
+    }
+
+    public boolean isPlayerResultsVisible() {
+        return isPlayerResultsVisible;
+    }
+
+    public void setPlayerResultsVisible(boolean playerResultsVisible) {
+        isPlayerResultsVisible = playerResultsVisible;
+    }
+
     private List<TeamMateViewModel> getTeamMates(List<TeamMate> teamMates) {
         List<TeamMateViewModel> formattedMates = new ArrayList<>();
         for (TeamMate mate : teamMates) {
             formattedMates.add(new TeamMateViewModel(res, mate.getId(), mate.getName(),
                     mate.getJerseyNumber()));
         }
+
+        setNoResultsVisible(formattedMates.isEmpty());
+        setPlayerResultsVisible(!formattedMates.isEmpty());
+
         return formattedMates;
     }
 }

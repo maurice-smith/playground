@@ -5,5 +5,5 @@
     <string name="enter_button">ADD</string>
     <string name="title">Player Roster</string>
     <string name="no_results_msg">Sorry, no player found.</string>
-    <string name="info_txt_format">%1$d - Name: %2$s #: %3d</string>
+    <string name="info_txt_format">%1$d - Name: %2$s #: %3$d</string>
 </resources>

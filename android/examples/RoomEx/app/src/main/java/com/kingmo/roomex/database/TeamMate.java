@@ -20,6 +20,10 @@ public class TeamMate {
     @ColumnInfo(name = "jersey_number")
     private int jerseyNumber;
 
+    public TeamMate(String name, int jerseyNumber) {
+        this.name = name;
+        this.jerseyNumber = jerseyNumber;
+    }
 
     public long getId() {
         return id;
