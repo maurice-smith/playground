@@ -13,7 +13,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.kingmo.roomex.MainActivity">
+    tools:context="com.kingmo.roomex.view.MainActivity">
 
     <TextView
         android:id="@+id/title"
@@ -79,7 +79,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:text="@string/enter_button"
-            android:layout_gravity="center_horizontal"/>
+            android:layout_gravity="center_horizontal" />
     </LinearLayout>
 
 </LinearLayout>

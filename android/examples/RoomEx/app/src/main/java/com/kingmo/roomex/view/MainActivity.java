@@ -1,4 +1,4 @@
-package com.kingmo.roomex;
+package com.kingmo.roomex.view;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,6 +8,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.View;
 
+import com.kingmo.roomex.R;
+import com.kingmo.roomex.RoomExApplication;
+import com.kingmo.roomex.SchedulerProvider;
 import com.kingmo.roomex.database.AppDatabase;
 import com.kingmo.roomex.databinding.ActivityMainBinding;
 import com.kingmo.roomex.repository.TeamMateRepository;
