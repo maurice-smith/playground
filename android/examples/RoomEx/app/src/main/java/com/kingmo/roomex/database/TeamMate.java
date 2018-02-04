@@ -2,6 +2,7 @@ package com.kingmo.roomex.database;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 
 /**
@@ -21,6 +22,13 @@ public class TeamMate {
     private int jerseyNumber;
 
     public TeamMate(String name, int jerseyNumber) {
+        this.name = name;
+        this.jerseyNumber = jerseyNumber;
+    }
+
+    @Ignore
+    public TeamMate(long id, String name, int jerseyNumber) {
+        this.id = id;
         this.name = name;
         this.jerseyNumber = jerseyNumber;
     }
