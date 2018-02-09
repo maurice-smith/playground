@@ -9,6 +9,9 @@ import com.kingmo.roomex.repository.TeamMateRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.*;
 import org.mockito.MockitoAnnotations;
 
@@ -19,12 +22,10 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
 import io.reactivex.Flowable;
+import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
-/**
- * Created by kingmo on 2/4/18.
- */
 public class RosterEntryViewModelTest {
     @Mock
     private TeamMateRepository teamMateRepo;
@@ -36,6 +37,7 @@ public class RosterEntryViewModelTest {
     private Resources res;
 
     private RosterEntryViewModel viewModel;
+    private boolean didCompletableRun;
 
     @Before
     public void setUp() throws Exception {
@@ -43,6 +45,9 @@ public class RosterEntryViewModelTest {
 
         when(schedulerProvider.backgroundThread()).thenReturn(Schedulers.trampoline());
         when(schedulerProvider.mainThread()).thenReturn(Schedulers.trampoline());
+
+        viewModel = new RosterEntryViewModel(teamMateRepo, schedulerProvider, res);
+        didCompletableRun = false;
     }
 
     @Test
@@ -56,7 +61,6 @@ public class RosterEntryViewModelTest {
 
         when(teamMateRepo.getTeamMates()).thenReturn(Flowable.just(mates));
 
-        viewModel = new RosterEntryViewModel(teamMateRepo, schedulerProvider, res);
         viewModel.getFormattedTeamInfos()
                 .observeOn(Schedulers.trampoline())
                 .subscribeOn(Schedulers.trampoline())
@@ -69,7 +73,41 @@ public class RosterEntryViewModelTest {
 
         assertThat(resultList.size(), is(2));
         assertThat(resultList.get(0).toString(), is("TeamMateViewModel{mateId:4354, name:Billy, jerseyNumber:20}"));
+        assertFalse(viewModel.isNoResultsVisible());
+        assertTrue(viewModel.isPlayerResultsVisible());
 
-        verify(teamMateRepo, times(1)).getTeamMates();
+        verify(teamMateRepo, atLeastOnce()).getTeamMates();
+    }
+
+    @Test
+    public void testAddTeamMate() throws Exception {
+        viewModel.addTeamMate("Troy", 21)
+                .observeOn(Schedulers.trampoline())
+                .subscribeOn(Schedulers.trampoline())
+                .subscribe(new Action() {
+                    @Override
+                    public void run() throws Exception {
+                        didCompletableRun = true;
+                    }
+                });
+
+        assertTrue(didCompletableRun);
+        verify(teamMateRepo, atLeastOnce()).addTeamMate(any(TeamMate.class));
+    }
+
+    @Test
+    public void testRemoveTeamMate() throws Exception {
+        viewModel.removeTeamMate(new TeamMate("Test", 100))
+                .observeOn(Schedulers.trampoline())
+                .subscribeOn(Schedulers.trampoline())
+                .subscribe(new Action() {
+                    @Override
+                    public void run() throws Exception {
+                        didCompletableRun = true;
+                    }
+                });
+
+        assertTrue(didCompletableRun);
+        verify(teamMateRepo, atLeastOnce()).removeMate(any(TeamMate.class));
     }
 }
