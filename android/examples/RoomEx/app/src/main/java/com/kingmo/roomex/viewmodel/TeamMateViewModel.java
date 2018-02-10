@@ -1,46 +1,42 @@
 package com.kingmo.roomex.viewmodel;
 
 import android.content.res.Resources;
-import android.support.annotation.NonNull;
-import android.view.View;
-import android.widget.Toast;
 
 import com.kingmo.roomex.R;
 import com.kingmo.roomex.database.TeamMate;
+import com.kingmo.roomex.view.TeamMateClickHandler;
 
 /**
  * Created by kingmo on 2/1/18.
  */
 
 public class TeamMateViewModel {
-    private long mateId;
-    private String name;
-    private int jerseyNumber;
+    private TeamMate mate;
     private Resources res;
+    private TeamMateClickHandler teamMateClickHandler;
 
-    public TeamMateViewModel(Resources res,long mateId, String name, int jerseyNumber) {
-        this.mateId = mateId;
-        this.name = name;
-        this.jerseyNumber = jerseyNumber;
+    public TeamMateViewModel(Resources res, TeamMate mate,
+                             TeamMateClickHandler teamMateClickHandler) {
+        this.mate = mate;
         this.res = res;
+        this.teamMateClickHandler = teamMateClickHandler;
     }
 
     public String getMateNameText() {
-        return res.getString(R.string.info_txt_format, mateId, name, jerseyNumber);
+        return res.getString(R.string.info_txt_format, mate.getId(),
+                mate.getName(), mate.getJerseyNumber());
     }
 
     public void infoRowClick() {
-        //Toast.makeText(view.getContext(), "Test Message CLick!!", Toast.LENGTH_SHORT).show();
-        System.out.println(this.toString());
-        //TODO interface for deletion
+        teamMateClickHandler.removeMateClick(mate);
     }
 
     @Override
     public String toString() {
         return "TeamMateViewModel{" +
-                "mateId:" + mateId +
-                ", name:" + name +
-                ", jerseyNumber:" + jerseyNumber +
+                "mateId:" + mate.getId() +
+                ", name:" + mate.getName() +
+                ", jerseyNumber:" + mate.getJerseyNumber() +
                 '}';
     }
 }

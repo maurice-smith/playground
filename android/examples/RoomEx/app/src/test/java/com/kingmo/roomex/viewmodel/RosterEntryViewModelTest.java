@@ -5,6 +5,7 @@ import android.content.res.Resources;
 import com.kingmo.roomex.SchedulerProvider;
 import com.kingmo.roomex.database.TeamMate;
 import com.kingmo.roomex.repository.TeamMateRepository;
+import com.kingmo.roomex.view.TeamMateClickHandler;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -36,6 +37,9 @@ public class RosterEntryViewModelTest {
     @Mock
     private Resources res;
 
+    @Mock
+    private TeamMateClickHandler clickHandler;
+
     private RosterEntryViewModel viewModel;
     private boolean didCompletableRun;
 
@@ -46,7 +50,8 @@ public class RosterEntryViewModelTest {
         when(schedulerProvider.backgroundThread()).thenReturn(Schedulers.trampoline());
         when(schedulerProvider.mainThread()).thenReturn(Schedulers.trampoline());
 
-        viewModel = new RosterEntryViewModel(teamMateRepo, schedulerProvider, res);
+        viewModel = new RosterEntryViewModel(teamMateRepo, schedulerProvider,
+                res, clickHandler);
         didCompletableRun = false;
     }
 

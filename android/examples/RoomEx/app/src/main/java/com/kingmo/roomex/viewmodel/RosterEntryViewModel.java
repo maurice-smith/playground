@@ -1,11 +1,11 @@
 package com.kingmo.roomex.viewmodel;
 
 import android.content.res.Resources;
-import android.view.View;
 
 import com.kingmo.roomex.SchedulerProvider;
 import com.kingmo.roomex.database.TeamMate;
 import com.kingmo.roomex.repository.TeamMateRepository;
+import com.kingmo.roomex.view.TeamMateClickHandler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,12 +27,16 @@ public class RosterEntryViewModel {
     private Resources res;
     private boolean isNoResultsVisible;
     private boolean isPlayerResultsVisible;
+    private TeamMateClickHandler mateClickHandler;
 
     public RosterEntryViewModel(TeamMateRepository teamMateRepo,
-                                SchedulerProvider schedulerProvider, Resources res) {
+                                SchedulerProvider schedulerProvider,
+                                Resources res,
+                                TeamMateClickHandler mateClickHandler) {
         this.teamMateRepo = teamMateRepo;
         this.schedulerProvider = schedulerProvider;
         this.res = res;
+        this.mateClickHandler = mateClickHandler;
     }
 
     public Flowable<List<TeamMateViewModel>> getFormattedTeamInfos() {
@@ -102,8 +106,8 @@ public class RosterEntryViewModel {
     private List<TeamMateViewModel> getTeamMates(List<TeamMate> teamMates) {
         List<TeamMateViewModel> formattedMates = new ArrayList<>();
         for (TeamMate mate : teamMates) {
-            formattedMates.add(new TeamMateViewModel(res, mate.getId(), mate.getName(),
-                    mate.getJerseyNumber()));
+            formattedMates.add(new TeamMateViewModel(res, mate,
+                    mateClickHandler));
         }
 
         setNoResultsVisible(formattedMates.isEmpty());

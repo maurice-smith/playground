@@ -56,4 +56,13 @@ public class TeamMate {
     public void setJerseyNumber(int jerseyNumber) {
         this.jerseyNumber = jerseyNumber;
     }
+
+    @Override
+    public String toString() {
+        return "TeamMate{" +
+                "id=" + id +
+                ", name=" + name +
+                ", jerseyNumber=" + jerseyNumber +
+                '}';
+    }
 }

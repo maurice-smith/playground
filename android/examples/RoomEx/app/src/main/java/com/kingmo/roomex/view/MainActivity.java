@@ -1,5 +1,7 @@
 package com.kingmo.roomex.view;
 
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -7,11 +9,13 @@ import android.databinding.DataBindingUtil;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.kingmo.roomex.R;
 import com.kingmo.roomex.RoomExApplication;
 import com.kingmo.roomex.SchedulerProvider;
 import com.kingmo.roomex.database.AppDatabase;
+import com.kingmo.roomex.database.TeamMate;
 import com.kingmo.roomex.databinding.ActivityMainBinding;
 import com.kingmo.roomex.repository.TeamMateRepository;
 import com.kingmo.roomex.viewmodel.RosterEntryViewModel;
@@ -25,7 +29,7 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements TeamMateClickHandler {
     private static String TAG = MainActivity.class.getSimpleName();
 
     private ActivityMainBinding binding;
@@ -33,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private AppDatabase appDatabase;
     private TeamMateAdapter mateAdapter;
     private CompositeDisposable subscribers = new CompositeDisposable();
+    private AlertDialog removeDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         binding.setViewModel(new RosterEntryViewModel(teamMateRepository,
-                new SchedulerProvider(), getResources()));
+                new SchedulerProvider(), getResources(), this));
 
         binding.submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,7 +57,6 @@ public class MainActivity extends AppCompatActivity {
                         binding.playerNumber.getText().toString());
             }
         });
-
         setUpRecyclerView();
     }
 
@@ -144,5 +148,35 @@ public class MainActivity extends AppCompatActivity {
         if (!subscribers.isDisposed()) {
             subscribers.dispose();
         }
+
+        if (removeDialog != null && removeDialog.isShowing()) {
+            removeDialog.hide();
+        }
+    }
+
+    @Override
+    public void removeMateClick(final TeamMate teamMate) {
+        removeDialog = new AlertDialog.Builder(this).setTitle(R.string.remove_mate_dialog_title)
+                .setMessage(getString(R.string.remove_mate_dialog_msg, teamMate.getName()))
+                .setPositiveButton(R.string.remove_mate_dialog_confirm, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        subscribeToRemoveUser(teamMate);
+                    }
+                })
+                .setNegativeButton(R.string.remove_mate_dialog_cancel, null).show();
+    }
+
+    private void subscribeToRemoveUser(final TeamMate teamMate) {
+        subscribers.add(binding.getViewModel().removeTeamMate(teamMate)
+                .subscribe(new Action() {
+                    @Override
+                    public void run() throws Exception {
+                        binding.playerList.getAdapter().notifyDataSetChanged();
+                        Toast.makeText(MainActivity.this,
+                                teamMate.getName() + " has been removed!!",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                }));
     }
 }

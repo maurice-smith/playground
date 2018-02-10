@@ -6,4 +6,8 @@
     <string name="title">Player Roster</string>
     <string name="no_results_msg">Sorry, no player found.</string>
     <string name="info_txt_format">%1$d - Name: %2$s #: %3$d</string>
+    <string name="remove_mate_dialog_title">Remove Teammate</string>
+    <string name="remove_mate_dialog_msg">Do you want to remove %1$s?</string>
+    <string name="remove_mate_dialog_confirm">YES</string>
+    <string name="remove_mate_dialog_cancel">NO</string>
 </resources>
