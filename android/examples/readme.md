@@ -13,4 +13,4 @@ Android Examples
 
 * [Kotlin](https://github.com/maurice-smith/playground/tree/master/android/kotlin)
 
-    Demo Android Projects using the [Kotlin](https://kotlinlang.org/) programming language. 
+    Demo Android Projects using the [Kotlin programming language](https://kotlinlang.org/). 
