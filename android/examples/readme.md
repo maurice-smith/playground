@@ -10,3 +10,7 @@ Android Examples
      Example of how to use the Android Room SQLite Database persistance library. Also uses data binding and RxJava/ RxAndroid.
      
 * [Glide for Android](https://github.com/maurice-smith/playground/tree/master/android/examples/GlideEx)
+
+* [Kotlin](https://github.com/maurice-smith/playground/tree/master/android/kotlin)
+
+    Demo Android Projects using the [Kotlin](https://kotlinlang.org/) programming language. 
