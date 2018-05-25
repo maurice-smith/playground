@@ -11,6 +11,8 @@ import java.util.List;
 
 /**
  * Created by kingmo on 1/24/18.
+ * 
+ * https://jsonplaceholder.typicode.com/
  */
 
 public class ItemListViewModel extends ViewModel {
