@@ -36,4 +36,10 @@ class AquariumTest {
         aquarium = Aquarium(9)
         println("# of Fish: ${aquarium.numberOfFish}")
     }
+
+    @Test
+    fun compositionInterfaceDelegationTest() {
+        val aquarium = Aquarium(3)
+        aquarium.delegate()
+    }
 }
