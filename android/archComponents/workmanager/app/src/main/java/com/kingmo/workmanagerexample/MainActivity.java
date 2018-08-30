@@ -2,14 +2,14 @@ package com.kingmo.workmanagerexample;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.TextInputEditText;
-import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.kingmo.workmanagerexample.models.Message;
 import com.kingmo.workmanagerexample.work.AppScheduler;
@@ -20,7 +20,6 @@ import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.kingmo.workmanagerexample.models.Message.MSG_KEY;
 import static com.kingmo.workmanagerexample.work.SharedPrefWorker.WORK_EXTRA;
 
 public class MainActivity extends AppCompatActivity {
@@ -58,6 +57,11 @@ public class MainActivity extends AppCompatActivity {
                     .setInputData(inputData);
 
             appScheduler.schedule(workBuilder);
+
+            Toast.makeText(this, getString(R.string.schedToastMsg), Toast.LENGTH_SHORT).show();
+
+            Handler finishHandler = new Handler();
+            finishHandler.postDelayed(() -> finishAndRemoveTask(), Duration.ofSeconds(2).toMillis());
         });
     }
 
