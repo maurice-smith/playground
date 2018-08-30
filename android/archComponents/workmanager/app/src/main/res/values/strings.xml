@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">WorkManagerExample</string>
+    <string name="action_settings">Settings</string>
+    <string name="scheduling">Scheduling job to run %1$s minutes from now.</string>
+    <string name="sheduleButtonText">Schedule</string>
+    <string name="timeHint">Enter the delay in minutes</string>
+    <string name="lastScheduledMsg">Message from last job run:\n %1$s</string>
+</resources>
