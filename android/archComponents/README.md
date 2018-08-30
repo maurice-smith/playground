@@ -2,3 +2,4 @@
 
 * [Lifecyle Observer](https://github.com/maurice-smith/playground/tree/master/android/archComponents/lifecycle)
 * [ViewModel](https://github.com/maurice-smith/playground/tree/master/android/archComponents/ViewModelEx)
+* [WorkManager](https://github.com/maurice-smith/playground/tree/master/android/archComponents/workmanager)
