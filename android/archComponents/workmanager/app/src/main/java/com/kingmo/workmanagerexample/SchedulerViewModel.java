@@ -5,7 +5,7 @@ import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 import android.content.res.Resources;
 
-import static com.kingmo.workmanagerexample.models.Message.MSG_KEY;
+import static com.kingmo.workmanagerexample.PrefManager.MSG_KEY;
 
 public class SchedulerViewModel extends ViewModel {
     private MutableLiveData<String> sharedPrefMessage;

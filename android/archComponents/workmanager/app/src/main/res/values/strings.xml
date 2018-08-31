@@ -6,4 +6,5 @@
     <string name="timeHint">Enter the delay in minutes</string>
     <string name="lastScheduledMsg">Message from last job run:\n %1$s</string>
     <string name="schedToastMsg">Job Scheduled!</string>
+    <string name="msgHint">Enter your message</string>
 </resources>

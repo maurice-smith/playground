@@ -9,7 +9,7 @@ import androidx.work.Data;
 import androidx.work.Worker;
 
 import static androidx.work.Worker.Result.SUCCESS;
-import static com.kingmo.workmanagerexample.models.Message.MSG_KEY;
+import static com.kingmo.workmanagerexample.PrefManager.MSG_KEY;
 
 public class SharedPrefWorker extends Worker {
     public static final String TAG = SharedPrefWorker.class.getSimpleName();
