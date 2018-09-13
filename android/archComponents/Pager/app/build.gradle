@@ -1,37 +1,70 @@
 apply plugin: 'com.android.application'
 
-def supportVersion = "27.1.1"
-def lifeCycleVersion = "1.1.1"
+def supportVersion = "1.0.0-rc02"
+def lifeCycleVersion = "2.0.0-rc01"
+def retrofitVersion = "2.4.0"
+def okHttpVersion = "3.11.0"
+def roomVersion = "2.0.0-rc01"
+def pagingVersion = "2.0.0-rc01"
+def testRunnerVersion = "1.1.0-alpha1"
+def espressoVersion = "3.1.0-alpha1"
 
 android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.kingmo.pager"
-        minSdkVersion 28
+        minSdkVersion 26
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+        debug {}
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.android.support:appcompat-v7:28.0.0-rc02'
-    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
-    implementation "android.arch.lifecycle:extensions:$lifeCycleVersion"
-    implementation "android.arch.lifecycle:common-java8:$lifeCycleVersion"
 
-    // optional - ReactiveStreams support for LiveData
-    implementation "android.arch.lifecycle:reactivestreams:$lifeCycleVersion"
+    implementation "androidx.appcompat:appcompat:$supportVersion"
+    implementation "androidx.constraintlayout:constraintlayout:1.1.3"
+    implementation "androidx.lifecycle:lifecycle-extensions:$lifeCycleVersion"
+    implementation "androidx.lifecycle:lifecycle-common-java8:$lifeCycleVersion"
+    implementation "androidx.lifecycle:lifecycle-reactivestreams:$lifeCycleVersion"
+    implementation "androidx.lifecycle:lifecycle-livedata:$lifeCycleVersion"
+    implementation "androidx.lifecycle:lifecycle-livedata-core:$lifeCycleVersion"
+
+    //paging lib
+    implementation "androidx.paging:paging-runtime:$pagingVersion"
+    implementation "androidx.paging:paging-rxjava2:$pagingVersion"
+    testImplementation "androidx.paging:paging-common:$pagingVersion"
+
+    //Room
+    implementation "androidx.room:room-runtime:$roomVersion"
+    implementation "androidx.room:room-compiler:$roomVersion"
+    implementation "androidx.room:room-common:$roomVersion"
+    annotationProcessor "androidx.room:room-compiler:$roomVersion"
+    implementation "androidx.room:room-rxjava2:$roomVersion"
+    androidTestImplementation "androidx.room:room-testing:$roomVersion"
+
+    //retrofit
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+    implementation "com.squareup.okhttp3:okhttp:$okHttpVersion"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion"
 
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    androidTestImplementation "androidx.test:runner:$testRunnerVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$espressoVersion"
 }
