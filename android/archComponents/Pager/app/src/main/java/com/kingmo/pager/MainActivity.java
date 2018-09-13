@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
+    //API
+    //https://jsonplaceholder.typicode.com/posts?_page=1&_limit=10
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
