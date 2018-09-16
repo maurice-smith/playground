@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Pager</string>
+    <string name="post_error_title">Error</string>
+    <string name="post_error_body">Sorry, there was an error.</string>
+    <string name="post_id">ID: %1$d</string>
+    <string name="post_userId">User ID: %1$d</string>
+
 </resources>
