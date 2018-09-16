@@ -4,6 +4,7 @@ import com.kingmo.pager.database.entity.Post;
 
 import java.util.List;
 
+import androidx.paging.DataSource;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -22,9 +23,14 @@ public interface PostsDao {
     @Query("DELETE FROM posts")
     void deleteAll();
 
-    @Query("SELECT * FROM posts LIMIT x = :numToReturn,y = :offset")
-    Flowable<List<Post>> getPosts(int numToReturn, int offset);
+    @Query("SELECT * FROM posts")
+    Flowable<List<Post>> getPosts();
 
     @Query("SELECT * FROM post WHERE id = :postId LIMIT 1")
     Flowable<Post> getPost(int postId);
+
+    // The Integer type parameter tells Room to use a PositionalDataSource
+    // object, with position-based loading under the hood.
+    @Query("SELECT * FROM posts")
+    DataSource.Factory<Integer, Post> getPostsDataSource();
 }
