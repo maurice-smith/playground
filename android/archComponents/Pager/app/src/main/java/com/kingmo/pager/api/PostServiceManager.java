@@ -14,7 +14,7 @@ public class PostServiceManager {
         this.postApiService = postApiService;
     }
 
-    public Observable<List<ApiPost>> getPosts(int pageNum, int offset) {
-        return postApiService.getPosts(pageNum, offset);
+    public Observable<List<ApiPost>> getPosts(int startIndex, int resultLimit) {
+        return postApiService.getPosts(startIndex, resultLimit);
     }
 }

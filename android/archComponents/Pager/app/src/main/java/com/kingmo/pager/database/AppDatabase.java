@@ -22,6 +22,8 @@ public abstract class AppDatabase extends RoomDatabase {
         return instance;
     }
 
+    public abstract PostsDao getPostDao();
+
     public static void destroyInstance() {
         instance = null;
     }

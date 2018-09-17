@@ -15,6 +15,9 @@ import io.reactivex.Flowable;
 @Dao
 public interface PostsDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void add(List<Post> posts);
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void add(Post... posts);
 
     @Delete

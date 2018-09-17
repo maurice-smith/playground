@@ -10,5 +10,5 @@ import retrofit2.http.Query;
 
 public interface PostApiService {
     @GET("posts")
-    Observable<List<ApiPost>> getPosts(@Query("_page") int pageNum, @Query("_limit") int offset);
+    Observable<List<ApiPost>> getPosts(@Query("_start") int startIndex, @Query("_limit") int limit);
 }
