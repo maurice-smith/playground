@@ -29,7 +29,7 @@ public interface PostsDao {
     @Query("SELECT * FROM posts")
     Flowable<List<Post>> getPosts();
 
-    @Query("SELECT * FROM post WHERE id = :postId LIMIT 1")
+    @Query("SELECT * FROM posts WHERE post_id = :postId LIMIT 1")
     Flowable<Post> getPost(int postId);
 
     // The Integer type parameter tells Room to use a PositionalDataSource

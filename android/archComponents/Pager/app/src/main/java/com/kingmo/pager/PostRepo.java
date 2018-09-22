@@ -7,6 +7,7 @@ import com.kingmo.pager.database.entity.Post;
 
 import java.util.List;
 
+import androidx.paging.DataSource;
 import io.reactivex.Flowable;
 import io.reactivex.Observable;
 
@@ -63,5 +64,9 @@ public class PostRepo {
 
     public int getLastFetchedStartIndex() {
         return prefManager.getIntValue(LAST_FETCHED_START_INDEX_KEY);
+    }
+
+    public DataSource.Factory<Integer, Post> getPostsDataSource() {
+        return postsDao.getPostsDataSource();
     }
 }

@@ -1,23 +1,32 @@
 package com.kingmo.pager.viewModel;
 
+import com.kingmo.pager.PostBoundaryCallback;
+import com.kingmo.pager.PostRepo;
 import com.kingmo.pager.api.PostServiceManager;
+import com.kingmo.pager.api.models.ApiPost;
 import com.kingmo.pager.database.PostsDao;
 import com.kingmo.pager.database.entity.Post;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.ViewModel;
 import androidx.paging.LivePagedListBuilder;
 import androidx.paging.PagedList;
 
 import static com.kingmo.pager.PostRepo.NETWORK_PAGE_SIZE;
 
-public class UserPostViewModel {
-    private PostsDao postsDao;
-    private PostServiceManager postServiceManager;
+public class UserPostViewModel extends ViewModel {
+    private PostRepo postRepo;
     private PagedList.Config postsPagingConfig;
 
-    public UserPostViewModel(PostsDao postsDao, PostServiceManager postServiceManager) {
-        this.postsDao = postsDao;
-        this.postServiceManager = postServiceManager;
+    public UserPostViewModel() {
+    }
+
+    public void setPostRepo(PostRepo postRepo) {
+        this.postRepo = postRepo;
+    }
+
+    public UserPostViewModel(PostRepo postRepo) {
+        this.postRepo = postRepo;
         this.postsPagingConfig = new PagedList.Config.Builder()
                 .setPageSize(NETWORK_PAGE_SIZE)
                 .setPrefetchDistance(NETWORK_PAGE_SIZE)
@@ -25,8 +34,9 @@ public class UserPostViewModel {
                 .build();
     }
 
-    public LiveData<PagedList<Post>> getPostFromDatabase() {
-        return new LivePagedListBuilder<>(postsDao.getPostsDataSource(), postsPagingConfig)
+    public LiveData<PagedList<Post>> getPostData() {
+        return new LivePagedListBuilder<>(postRepo.getPostsDataSource(), postsPagingConfig)
+                .setBoundaryCallback(new PostBoundaryCallback(postRepo))
                 //.setFetchExecutor(myExecutor)
                 .build();
     }

@@ -6,8 +6,11 @@ import com.kingmo.pager.api.PostServiceManager;
 import com.kingmo.pager.api.services.PostApiService;
 import com.kingmo.pager.database.AppDatabase;
 import com.kingmo.pager.network.ServiceGenerator;
+import com.kingmo.pager.ui.PostsRecyclerAdapter;
+import com.kingmo.pager.viewModel.UserPostViewModel;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,6 +19,8 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView postList;
     private AppDatabase appDatabase;
     private PostRepo postRepo;
+    private PostsRecyclerAdapter postsRecyclerAdapter;
+    private UserPostViewModel userPostViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +32,14 @@ public class MainActivity extends AppCompatActivity {
                 new PostServiceManager(ServiceGenerator.createService(PostApiService.class)),
                 new SharedPrefManager(this));
 
+        userPostViewModel = ViewModelProviders.of(this).get(UserPostViewModel.class);
+        userPostViewModel.setPostRepo(postRepo);
+
         postList = findViewById(R.id.postList);
         postList.setLayoutManager(new LinearLayoutManager(this));
+
+        postsRecyclerAdapter = new PostsRecyclerAdapter(this, getSupportFragmentManager());
+
+        userPostViewModel.getPostData().observe(this, postsRecyclerAdapter::submitList);
     }
 }
