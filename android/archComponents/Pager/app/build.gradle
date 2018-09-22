@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
-def supportVersion = "1.0.0-rc02"
-def lifeCycleVersion = "2.0.0-rc01"
+def supportVersion = "1.0.0"
+def lifeCycleVersion = "2.0.0"
 def retrofitVersion = "2.4.0"
 def okHttpVersion = "3.11.0"
 def roomVersion = "2.0.0-rc01"

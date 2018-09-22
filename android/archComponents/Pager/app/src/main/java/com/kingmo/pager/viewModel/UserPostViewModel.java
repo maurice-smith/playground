@@ -19,6 +19,11 @@ public class UserPostViewModel extends ViewModel {
     private PagedList.Config postsPagingConfig;
 
     public UserPostViewModel() {
+        this.postsPagingConfig = new PagedList.Config.Builder()
+                .setPageSize(NETWORK_PAGE_SIZE)
+                .setPrefetchDistance(NETWORK_PAGE_SIZE)
+                .setEnablePlaceholders(true)
+                .build();
     }
 
     public void setPostRepo(PostRepo postRepo) {
