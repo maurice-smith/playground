@@ -8,6 +8,8 @@ import androidx.lifecycle.LiveData;
 import androidx.paging.LivePagedListBuilder;
 import androidx.paging.PagedList;
 
+import static com.kingmo.pager.PostRepo.NETWORK_PAGE_SIZE;
+
 public class UserPostViewModel {
     private PostsDao postsDao;
     private PostServiceManager postServiceManager;
@@ -17,8 +19,8 @@ public class UserPostViewModel {
         this.postsDao = postsDao;
         this.postServiceManager = postServiceManager;
         this.postsPagingConfig = new PagedList.Config.Builder()
-                .setPageSize(50)
-                .setPrefetchDistance(150)
+                .setPageSize(NETWORK_PAGE_SIZE)
+                .setPrefetchDistance(NETWORK_PAGE_SIZE)
                 .setEnablePlaceholders(true)
                 .build();
     }

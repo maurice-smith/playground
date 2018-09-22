@@ -1,6 +1,8 @@
 package com.kingmo.pager.database.entity;
 
 
+import java.util.Arrays;
+
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -55,5 +57,33 @@ public class Post {
 
     public void setBody(String body) {
         this.body = body;
+    }
+
+    @Override
+    public String toString() {
+        return "Post{" +
+                "userId=" + userId +
+                ", id=" + id +
+                ", title='" + title + '\'' +
+                ", body='" + body + '\'' +
+                '}';
+    }
+
+    @Override
+    public int hashCode() {
+        return Arrays.hashCode(new Object[]{id, userId, title, body});
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Post) {
+            Post param = (Post) obj;
+
+            return userId == param.userId
+                    && id == param.getId()
+                    && title.equals(param.title)
+                    && body.equals(param.body);
+        }
+        return false;
     }
 }
