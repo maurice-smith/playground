@@ -2,9 +2,6 @@ package com.kingmo.pager.viewModel;
 
 import com.kingmo.pager.PostBoundaryCallback;
 import com.kingmo.pager.PostRepo;
-import com.kingmo.pager.api.PostServiceManager;
-import com.kingmo.pager.api.models.ApiPost;
-import com.kingmo.pager.database.PostsDao;
 import com.kingmo.pager.database.entity.Post;
 
 import androidx.lifecycle.LiveData;

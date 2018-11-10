@@ -1,12 +1,12 @@
 apply plugin: 'com.android.application'
 
-def supportVersion = "1.0.0-rc02"
+def supportVersion = "1.0.0"
 
-def lifeCycleVersion = "2.0.0-rc01"
+def lifeCycleVersion = "2.0.0"
 def retrofitVersion = "2.4.0"
 def okHttpVersion = "3.11.0"
-def roomVersion = "2.0.0-rc01"
-def pagingVersion = "2.0.0-rc01"
+def roomVersion = "2.0.0"
+def pagingVersion = "2.0.0"
 def testRunnerVersion = "1.1.0-alpha1"
 def espressoVersion = "3.1.0-alpha1"
 
@@ -41,9 +41,9 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
-//    dataBinding {
-//        enabled = true
-//    }
+    dataBinding {
+        enabled = true
+    }
 }
 
 dependencies {
