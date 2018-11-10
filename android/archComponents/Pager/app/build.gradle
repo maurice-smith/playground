@@ -1,7 +1,8 @@
 apply plugin: 'com.android.application'
 
-def supportVersion = "1.0.0"
-def lifeCycleVersion = "2.0.0"
+def supportVersion = "1.0.0-rc02"
+
+def lifeCycleVersion = "2.0.0-rc01"
 def retrofitVersion = "2.4.0"
 def okHttpVersion = "3.11.0"
 def roomVersion = "2.0.0-rc01"
@@ -79,4 +80,15 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation "androidx.test:runner:$testRunnerVersion"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espressoVersion"
+}
+
+configurations.all {
+    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+        def requested = details.requested
+        if (requested.group == "androidx.appcompat") {
+            if (!requested.name.startsWith("multidex")) {
+                details.useVersion "1.+"
+            }
+        }
+    }
 }
