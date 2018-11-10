@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
         postList.setLayoutManager(new LinearLayoutManager(this));
 
         postsRecyclerAdapter = new PostsRecyclerAdapter(getResources());
+        postList.setAdapter(postsRecyclerAdapter);
 
         userPostViewModel.getPostData().observe(this, postsRecyclerAdapter::submitList);
     }

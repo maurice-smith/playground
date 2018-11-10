@@ -12,6 +12,6 @@ public class PostDiffCallback extends DiffUtil.ItemCallback<Post> {
 
     @Override
     public boolean areContentsTheSame(Post oldItem, Post newItem) {
-        return (oldItem != null && newItem != null) && oldItem.equals(newItem);
+        return (oldItem != null && newItem != null) && oldItem.getId() == newItem.getId();
     }
 }

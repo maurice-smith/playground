@@ -39,7 +39,6 @@ public class UserPostViewModel extends ViewModel {
     public LiveData<PagedList<Post>> getPostData() {
         return new LivePagedListBuilder<>(postRepo.getPostsDataSource(), postsPagingConfig)
                 .setBoundaryCallback(new PostBoundaryCallback(postRepo))
-                //.setFetchExecutor(myExecutor)
                 .build();
     }
 }
