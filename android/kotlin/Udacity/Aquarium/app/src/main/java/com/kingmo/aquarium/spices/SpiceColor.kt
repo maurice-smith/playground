@@ -1,5 +1,5 @@
 package com.kingmo.aquarium.spices
 
 interface SpiceColor {
-    val color: String
+    val color: Color
 }

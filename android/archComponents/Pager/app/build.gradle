@@ -80,6 +80,8 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation "androidx.test:runner:$testRunnerVersion"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espressoVersion"
+
+    testImplementation "org.mockito:mockito-core:2.13.0"
 }
 
 configurations.all {

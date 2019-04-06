@@ -7,6 +7,8 @@ import com.kingmo.pager.database.entity.Post;
 
 import java.util.List;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.VisibleForTesting;
 import androidx.paging.DataSource;
 import io.reactivex.Flowable;
 import io.reactivex.Observable;
@@ -26,7 +28,7 @@ public class PostRepo {
         this.prefManager = prefManager;
     }
 
-    public void saveToDatabase(ApiPost post) {
+    public void saveToDatabase(@NonNull ApiPost post) {
         postsDao.add(new Post(post.getUserId(), post.getId(),
                 post.getTitle(), post.getBody()));
     }
