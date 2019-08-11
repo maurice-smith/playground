@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">BottomSheets</string>
+    <string name="content_text">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sextilio Rufo, cum is rem ad amicos ita deferret, se esse heredem Q. Nec enim, omnes avaritias si aeque avaritias esse dixerimus, sequetur ut etiam aequas esse dicamus. Quia dolori non voluptas contraria est, sed doloris privatio. Quare conare, quaeso. Te ipsum, dignissimum maioribus tuis, voluptasne induxit, ut adolescentulus eriperes P. Ab his oratores, ab his imperatores ac rerum publicarum principes extiterunt. Duo Reges: constructio interrete. Ad eas enim res ab Epicuro praecepta dantur.
+    </string>
+    <string name="bottom_sheet_behaviour">com.google.android.material.bottomsheet.BottomSheetBehavior</string>
+</resources>
